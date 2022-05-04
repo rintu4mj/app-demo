@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app-demo-deployment
-          image: gcr.io/double-aleph-348710/app-demo:latest
+          image: gcr.io/double-aleph-348710/app-demo:v2
           ports:
             - containerPort: 8080
 
