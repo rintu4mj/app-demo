@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.Tutorial;
 import com.example.demo.repository.TutorialRepository;
@@ -29,6 +30,9 @@ public class TutorialController {
 
 	@Autowired
 	TutorialRepository tutorialRepository;
+	
+	@Autowired
+	public RestTemplate restTemplate;
 
 	@GetMapping("/tutorials")
 	public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
@@ -47,6 +51,15 @@ public class TutorialController {
 			return new ResponseEntity<>(tutorials, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/tutorials")
+	public String check() {
+		try {
+			return restTemplate.getForObject("http://app-demo-ms-service:8081/api/status", String.class);
+		} catch (Exception e) {
+			return e.getMessage();
 		}
 	}
 
