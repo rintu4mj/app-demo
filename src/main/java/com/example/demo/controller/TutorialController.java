@@ -54,7 +54,7 @@ public class TutorialController {
 		}
 	}
 	
-	@GetMapping("/tutorials")
+	@GetMapping("/check")
 	public String check() {
 		try {
 			return restTemplate.getForObject("http://app-demo-ms-service:8081/api/status", String.class);
